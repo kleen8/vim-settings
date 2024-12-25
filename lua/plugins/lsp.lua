@@ -32,7 +32,9 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-		"gopls",
+	        	"gopls",
+                "jdtls",
+                "svelte",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -70,6 +72,56 @@ return {
                             }
                         }
                     }
+                end,
+
+                ["svelte"] = function ()
+                    require("lspconfig").svelte.setup({
+                        capabilities = capabilities,
+                        on_attach = function (client, bufnr)
+                            -- add custom key bindings if needed
+                        end,
+                    })
+                end,
+
+                ["jdtls"] = function()
+                    local lspconfig = require("lspconfig")
+                    local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t') -- Unique workspace per project
+                    local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
+                    lspconfig.jdtls.setup({
+                        cmd = {
+                            "java", -- Adjust if needed
+                            "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                            "-Dosgi.bundles.defaultStartLevel=4",
+                            "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                            "-Dlog.level=ALL",
+                            "-javaagent:" .. jdtls_path .. "/lombok.jar",
+                            "-Xms1g",
+                            "--add-modules=ALL-SYSTEM",
+                            "--add-opens", "java.base/java.util=ALL-UNNAMED",
+                            "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+                            "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+                            "-configuration", jdtls_path .. "/config_" .. vim.loop.os_uname().sysname:lower(),
+                            "-data", workspace_dir,
+                        },
+                        root_dir = require("lspconfig.util").root_pattern(".git", "mvnw", "gradlew"),
+                        capabilities = capabilities,
+                        settings = {
+                            java = {
+                                configuration = {
+                                    runtimes = {
+                                        {
+                                            name = "JavaSE-21",
+                                            path = "/usr/lib/jvm/java-21-openjdk-amd64",
+                                        },
+                                        {
+                                            name = "JavaSE-11",
+                                            path = "/usr/lib/jvm/java-11-openjdk-amd64", -- Update to your Java 17 path
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                    })
                 end,
             }
         })
