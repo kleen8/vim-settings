@@ -87,7 +87,7 @@ return {
 
                 ["jdtls"] = function()
                     local lspconfig = require("lspconfig")
-                    local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t') -- Unique workspace per project
+                    local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
                     local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
                      -- Paths to debug and test JARs
                     local java_debug_path = "/home/jelle-jacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
@@ -115,7 +115,7 @@ return {
                             "-configuration", jdtls_path .. "/config_" .. vim.loop.os_uname().sysname:lower(),
                             "-data", workspace_dir,
                         },
-                        root_dir = require("lspconfig.util").root_pattern(".git", "mvnw", "gradlew"),
+                        root_dir = require("lspconfig.util").root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
                         capabilities = capabilities,
                         init_options = {
                             bundles = bundles,
