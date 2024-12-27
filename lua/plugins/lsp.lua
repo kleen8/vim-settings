@@ -12,9 +12,11 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "nvim-java/nvim-java",
     },
 
     config = function()
+        require("java").setup()
         require("conform").setup({
             formatters_by_ft = {
             }
@@ -87,6 +89,16 @@ return {
                     local lspconfig = require("lspconfig")
                     local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t') -- Unique workspace per project
                     local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
+                     -- Paths to debug and test JARs
+                    local java_debug_path = "/home/jelle-jacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
+                    local java_test_path = "/home/jelle-jacobs/.config/nvim/vscode-java-test/server/*.jar"
+
+                    -- Prepare the bundles
+                    local bundles = {
+                        vim.fn.glob(java_debug_path, true), -- Debugging JAR
+                    }
+                    vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path, true), "\n")) -- Testing JARs
+
                     lspconfig.jdtls.setup({
                         cmd = {
                             "java", -- Adjust if needed
@@ -105,6 +117,9 @@ return {
                         },
                         root_dir = require("lspconfig.util").root_pattern(".git", "mvnw", "gradlew"),
                         capabilities = capabilities,
+                        init_options = {
+                            bundles = bundles,
+                        },
                         settings = {
                             java = {
                                 configuration = {
@@ -114,8 +129,8 @@ return {
                                             path = "/usr/lib/jvm/java-21-openjdk-amd64",
                                         },
                                         {
-                                            name = "JavaSE-11",
-                                            path = "/usr/lib/jvm/java-11-openjdk-amd64", -- Update to your Java 17 path
+                                            name = "JavaSE-17",
+                                            path = "/usr/lib/jvm/java-17-openjdk-amd64", -- Update to your Java 17 path
                                         },
                                     }
                                 }
