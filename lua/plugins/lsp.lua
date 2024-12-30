@@ -90,8 +90,8 @@ return {
                     local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
                     local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
                      -- Paths to debug and test JARs
-                    local java_debug_path = "/home/jelle-jacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
-                    local java_test_path = "/home/jelle-jacobs/.config/nvim/vscode-java-test/server/*.jar"
+                    local java_debug_path = "/home/jelle-jacobs/.config/nvim/com.microsoft.java.debug.plugin-*.jar"
+                    local java_test_path = "/home/jelle-jacobs/.config/nvim/server/*.jar"
 
                     -- Prepare the bundles
                     local bundles = {

@@ -1,2 +1,4 @@
 vscode-java-test/
 java-debug/
+com.microsoft.java.debug.plugin/
+server/
