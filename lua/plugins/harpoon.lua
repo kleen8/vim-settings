@@ -13,10 +13,10 @@ return {
 	vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = "Toggle Harpoon Menu" })
 
 	  -- Navigate between Harpoon marks
-        vim.keymap.set("n", "<leader>h1", function() ui.nav_file(1) end, { desc = "Go to Harpoon Mark 1" })
-    	vim.keymap.set("n", "<leader>h2", function() ui.nav_file(2) end, { desc = "Go to Harpoon Mark 2" })
-    	vim.keymap.set("n", "<leader>h3", function() ui.nav_file(3) end, { desc = "Go to Harpoon Mark 3" })
-    	vim.keymap.set("n", "<leader>h4", function() ui.nav_file(4) end, { desc = "Go to Harpoon Mark 4" })
+        vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end, { desc = "Go to Harpoon Mark 1" })
+    	vim.keymap.set("n", "<C-y>", function() ui.nav_file(2) end, { desc = "Go to Harpoon Mark 2" })
+    	vim.keymap.set("n", "<C-t>", function() ui.nav_file(3) end, { desc = "Go to Harpoon Mark 3" })
+    	vim.keymap.set("n", "<C-g>", function() ui.nav_file(4) end, { desc = "Go to Harpoon Mark 4" })
 
    end,
 }
