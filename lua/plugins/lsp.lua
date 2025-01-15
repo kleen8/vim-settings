@@ -88,10 +88,11 @@ return {
                 ["jdtls"] = function()
                     local lspconfig = require("lspconfig")
                     local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-                    local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
+                    -- local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
+                    local jdtls_path = "/home/jjacobs/.local/share/nvim/mason/packages/jdtls"
                      -- Paths to debug and test JARs
-                    local java_debug_path = "/home/jelle-jacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.1.jar"
-                    local java_test_path = "/home/jelle-jacobs/.config/nvim/server/*.jar"
+                    local java_debug_path = "/home/jjacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.1.jar"
+                    local java_test_path = "/home/jjacobs/.config/nvim/vscode-java-test/server/*.jar"
 
                     -- Prepare the bundles
                     local bundles = {
@@ -101,7 +102,7 @@ return {
 
                     lspconfig.jdtls.setup({
                         cmd = {
-                            "java", -- Adjust if needed
+                            "/home/jjacobs/.local/share/nvim/mason/packages/openjdk-17/jdk-17.0.2/bin/java", -- Adjust if needed
                             "-Declipse.application=org.eclipse.jdt.ls.core.id1",
                             "-Dosgi.bundles.defaultStartLevel=4",
                             "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -111,7 +112,7 @@ return {
                             "--add-modules=ALL-SYSTEM",
                             "--add-opens", "java.base/java.util=ALL-UNNAMED",
                             "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-                            "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+                            "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher.jar"),
                             "-configuration", jdtls_path .. "/config_" .. vim.loop.os_uname().sysname:lower(),
                             "-data", workspace_dir,
                         },
