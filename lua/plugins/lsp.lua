@@ -34,9 +34,10 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-	        	"gopls",
+                "gopls",
                 "jdtls",
                 "svelte",
+                "omnisharp",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -61,6 +62,7 @@ return {
                     vim.g.zig_fmt_autosave = 0
 
                 end,
+
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
@@ -74,6 +76,18 @@ return {
                             }
                         }
                     }
+                end,
+
+                ["omnisharp"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.omnisharp.setup({
+                        capabilities = capabilities,
+                        cmd = { "omnisharp" }, -- Ensure Omnisharp is installed and accessible
+                        root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
+                        enable_roslyn_analyzers = true,
+                        enable_import_completion = true,
+                        analyze_open_documents_only = true,
+                    })
                 end,
 
                 ["svelte"] = function ()
@@ -90,7 +104,7 @@ return {
                     local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
                     -- local jdtls_path = require("mason-registry").get_package("jdtls"):get_install_path()
                     local jdtls_path = "/home/jjacobs/.local/share/nvim/mason/packages/jdtls"
-                     -- Paths to debug and test JARs
+                    -- Paths to debug and test JARs
                     local java_debug_path = "/home/jjacobs/.config/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.1.jar"
                     local java_test_path = "/home/jjacobs/.config/nvim/vscode-java-test/server/*.jar"
 
@@ -160,8 +174,8 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                { name = 'buffer' },
-            })
+                    { name = 'buffer' },
+                })
         })
 
         vim.diagnostic.config({
