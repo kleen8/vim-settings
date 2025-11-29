@@ -1,0 +1,49 @@
+[font]
+size = 10.0 
+
+[font.normal]
+family = "MesloLGS Nerd Font Mono"
+style = "Regular"
+
+[font.bold]
+family = "MesloLGS Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "MesloLGS Nerd Font Mono"
+style = "Italic"
+
+[window]
+option_as_alt = "Both"
+
+[env]
+TERM = "xterm-256color"
+
+# ~/.config/alacritty/alacritty.yml
+[colors]
+# Default colors
+[colors.primary]
+background = '#031c1f' # base
+foreground = '#bdb395' # text
+
+# Normal colors
+[colors.normal]
+black=   '#26233a' # overlay
+red=     '#8eb69b' # love
+green=   '#e0def4' # pine
+yellow=  '#f6c177' # gold
+blue=    '#9ccfd8' # foam
+magenta= '#429e9d' # iris
+cyan=    '#3eb489' # rose
+white=   '#bdb395' # text
+
+# Bright colors
+[colors.bright]
+black=   '#908caa' # subtle
+red=     '#8eb69b' # love
+green=   '#e0def4' # pine
+yellow=  '#f6c177' # gold
+blue=    '#9ccfd8' # foam
+magenta= '#429e9d' # iris
+cyan=    '#3eb489' # rose
+white=   '#bdb395' # text
