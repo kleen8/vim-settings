@@ -9,6 +9,8 @@
 --         end,
 --     },
 -- }
+
+
 return {
     {
         "alljokecake/naysayer-theme.nvim",
@@ -20,8 +22,8 @@ return {
                 variant = 'main',
                 dark_variant = 'main',
                 -- ENABLE the background to match the Emacs theme #062329
-                disable_background = false, 
-                disable_float_background = false, 
+                disable_background = false,
+                disable_float_background = false,
                 disable_italics = true, -- Emacs config didn't emphasize italics
             })
 
@@ -70,7 +72,7 @@ return {
 
             -- 3. SEARCH & MATCHING (New)
             -- 'Search' is for all matches, 'CurSearch' is the one under your cursor
-            set_hl(0, "Search", { bg = colors.line_fg, fg = "#ffffff" }) 
+            set_hl(0, "Search", { bg = colors.line_fg, fg = "#ffffff" })
             set_hl(0, "CurSearch", { bg = colors.search_bg, fg = "#000000", bold = true })
             set_hl(0, "IncSearch", { link = "CurSearch" })
             set_hl(0, "MatchParen", { bg = "#555555", fg = "#ffffff", bold = true }) -- Highlights matching () [] {}
@@ -96,6 +98,19 @@ return {
             set_hl(0, "PmenuSel", { bg = colors.selection, fg = "#ffffff", bold = true })
             set_hl(0, "PmenuSbar", { bg = "#031619" }) -- Scrollbar track
             set_hl(0, "PmenuThumb", { bg = colors.line_fg }) -- Scrollbar handle
+
+            set_hl(0, "FlashLabel", { bg = "#ff00ff", fg = "#ffffff", bold = true })
+            -- The "Match" is the word you searched for
+            -- We make this Gold/Yellow (like your search color)
+            set_hl(0, "FlashMatch", { bg = colors.search_bg, fg = "#000000" })
+
+            -- The "Backdrop" is everything else on screen (dimmed)
+            -- We make it a dull grey/blue so it fades away but is still readable
+            set_hl(0, "FlashBackdrop", { fg = "#606060" })
+
+            -- The "Current" match (if you used standard search)
+            set_hl(0, "FlashCurrent", { bg = colors.selection, fg = "#ffffff" })
+
         end
     }
 }
